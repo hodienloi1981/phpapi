@@ -1,8 +1,13 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 include_once "../../config/database.php";
 
 $db = new Database();
@@ -19,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         if ($banner != null) {
             $sql = "DELETE FROM $table WHERE id=$id";
             if ($conn->query($sql) === TRUE) {
-                if (file_exists('../../assets/banner/' . $banner['image'])) {
-                    unlink('../../assets/banner/' . $banner['image']);
-                }
+                // if (file_exists('../../assets/banner/' . $banner['image'])) {
+                //     unlink('../../assets/banner/' . $banner['image']);
+                // }
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,

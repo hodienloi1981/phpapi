@@ -21,24 +21,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (
                 !empty($data['name']) &&
                 !empty($data['position']) &&
-                !empty($data['image']) &&
                 !empty($data['status'])
             ) {
                 $data['updated_at'] = date('Y-m-d H:i:s');
                 $data['updated_by'] = 1;
                 //upload file
-                $target_dir = "../../assets/banner/";
-                $target_file = $target_dir . basename($_FILES["image"]["name"]);
-                $extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                if (in_array($extension, ['jpg', 'png', 'webp'])) {
-                    $fileName = date('YmdHis') . "." . $extension;
-                    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_dir . $fileName)) {
-                        //Xóa ảnh cũ
-                        if (file_exists($target_dir . $banner['image'])) {
-                            unlink($target_dir . $banner['image']);
+                if (strlen(($_FILES["image"]["name"]) > 0)) {
+                    $target_dir = "../../assets/banner/";
+                    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                    $extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                    if (in_array($extension, ['jpg', 'png', 'webp'])) {
+                        $fileName = date('YmdHis') . "." . $extension;
+                        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_dir . $fileName)) {
+                            //Xóa ảnh cũ
+                            // if (file_exists($target_dir . $banner['image'])) {
+                            //     unlink($target_dir . $banner['image']);
+                            // }
+                            //upload ảnh mới
+                            $data['image'] = $fileName;
                         }
-                        //upload ảnh mới
-                        $data['image'] = $fieldName;
                     }
                 }
                 //Kết thúc
