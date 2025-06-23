@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['created_by'] = 1;
         $data['slug'] = str_slug($data['name']);
-         //upload file
+        //upload file
         $target_dir = "../../assets/category/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
         $extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

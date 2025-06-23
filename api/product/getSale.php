@@ -5,13 +5,11 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once "../../config/database.php";
 $db = new Database();
 $conn = $db->getConnection();
-$page = $_REQUEST['page'] ?? 1;
 $limit = $_REQUEST['limit'] ?? 10;
-$offset = ($page - 1) * $limit;
 $table = 'db_product';
 //
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $sql = "SELECT * FROM $table WHERE status='1' ORDER BY created_at DESC LIMIT $limit,$offset";
+    $sql = "SELECT * FROM $table WHERE status='1' AND price_sale>0 ORDER BY price_sale DESC LIMIT $limit";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $products = $result->fetch_all(MYSQLI_ASSOC);
