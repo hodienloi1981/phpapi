@@ -79,7 +79,7 @@
                     GET
                 </td>
                 <td class="p-3 border border-gray-200">
-                    http://localhost/PHPAPI/api/category/getList.php?position=slideshow&limit=10
+                    http://localhost/PHPAPI/api/category/getList.php?parentid=0&limit=10
                 </td>
             </tr>
         </tbody>
